@@ -7,9 +7,21 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/forum')
-.then(() => console.log("Connected to MongoDB"))
+
+const conn_str = "mongodb+srv://StellarNexus:StellarNexus@cluster0.3piwb.mongodb.net/StellarDB?retryWrites=true&w=majority&appName=Cluster0";
+const port = process.env.PORT || 3000;
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+mongoose.connect(
+conn_str,
+{serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }}
+).then(() => console.log("Connected to MongoDB"))
 .catch(err => console.error("Failed to connect to MongoDB"));
+;
 
 
 app.use(express.static('public'));  // Allow serving of files from public
@@ -144,4 +156,4 @@ app.use('/users', userRouter);
 app.use('/comments', commentRouter);
 app.use('/search', searchRouter);
 
-app.listen(3000);
+app.listen(port, () => console.log(`listening on port ${port}!`));
