@@ -149,6 +149,12 @@ app.get('/', async (req, res) => {
     }
 });
 
+// ABOUT PAGE
+app.get('/about', async (req, res) => {
+  res.render('about');
+})
+
+
 
 app.use(postRouter);
 app.use('/auth', authRouter);
