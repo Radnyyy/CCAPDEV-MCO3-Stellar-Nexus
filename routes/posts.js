@@ -120,6 +120,7 @@ router.post('/posts/:id/delete', async (req, res) => {
     const community = post.community; // Store community before deletion.
 
     await post.deleteOne()
+    await Comment.deleteMany({ post: req.params.id });
   
     res.redirect(`/c/${community}/posts/`);
     

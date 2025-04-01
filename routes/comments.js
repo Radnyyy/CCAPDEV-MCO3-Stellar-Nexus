@@ -54,7 +54,7 @@ router.post('/:id/delete', async (req, res) => {
     const post = await Post.findById(comment.post);
     
 
-    await comment.deleteOne()
+    await deleteCommentAndReplies(req.params.id);
 
     console.log(post);
     res.redirect(`/c/${post.community}/posts/${post._id}`);
@@ -178,7 +178,18 @@ router.get('/:id/edit', async (req, res) => {
 
 
 
-  
+// Function to recursively delete comments and it's children.
+async function deleteCommentAndReplies (commentId) {
+  const replies = await Comment.find({ parent: commentId });  
+
+  for (const reply of replies) {
+    await deleteCommentAndReplies(reply._id); // Recursively delete children
+  }
+
+  await Comment.findByIdAndDelete(commentId); // Delete the comment itself
+};
+
+
 module.exports = router;
   
 
