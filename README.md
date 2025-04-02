@@ -1,10 +1,4 @@
-To run the web forum application, here are the steps:
-
-1. Visit https://stellar-nexus.onrender.com/
-2. Use the web application.
-
-
-IF RUNNING LOCALLY:
+To run the web forum application locally, here are the steps:
 
 PREREQUISITES: Node.js 
 
